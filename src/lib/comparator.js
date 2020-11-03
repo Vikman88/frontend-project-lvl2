@@ -38,5 +38,6 @@ const compare = (data1, data2) => {
 export default (filePath1, filePath2) => {
   const parseFile1 = parse(filePath1);
   const parseFile2 = parse(filePath2);
-  return compare(parseFile1, parseFile2);
+  const result = compare(parseFile1, parseFile2);
+  return result;
 };
