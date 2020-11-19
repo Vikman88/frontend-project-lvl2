@@ -2,9 +2,9 @@ import _ from 'lodash';
 
 const createGraphs = (obj) => {
   const result = [];
-  const iter = (tree, str) => tree.reduce((acc, {name, status, children}) => {
+  const iter = (tree, str) => tree.reduce((acc, { name, status, children }) => {
     const newAcc = (str === '') ? `${name}` : `${str}.${name}`;
-    if (status === "node") return `${newAcc}.${iter(children, newAcc)}`;
+    if (status === 'node') return `${newAcc}.${iter(children, newAcc)}`;
     result.push(`${newAcc}:${status}`);
     return acc;
   }, str);
@@ -15,7 +15,7 @@ const createGraphs = (obj) => {
 const filterGraphs = (arr) => arr.filter((v) => !v.includes('leaf'));
 
 const replaceGraphs = (arr) => arr.map((v) => {
-  const [path, status] = v.split(":");
+  const [path, status] = v.split(':');
   return [path, status];
 });
 

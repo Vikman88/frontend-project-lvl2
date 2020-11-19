@@ -9,3 +9,5 @@ rules:
   import/extensions: 0
   import/prefer-default-export: 0
   no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
+  quote-props: 0
+  no-use-before-define: 0
