@@ -1,160 +1,116 @@
 ﻿[
 	{
-		"name": "common",
-		"status": "node",
-		"children": [
+		"key": "common",
+		"selector": "node",
+		"value": [
 			{
-				"name": "follow",
-				"status": "added",
-				"value": false
+				"key": "follow",
+				"selector": "added",
+				"newValue": false
 			},
 			{
-				"name": "setting1",
-				"status": "leaf",
+				"key": "setting1",
+				"selector": "leaf",
 				"value": "Value 1"
 			},
 			{
-				"name": "setting2",
-				"status": "deleted",
+				"key": "setting2",
+				"selector": "deleted",
 				"value": 200
 			},
 			{
-				"name": "setting3",
-				"status": "updated",
-				"value": {
-					"before": true,
-					"after": null
+				"key": "setting3",
+				"selector": "updated",
+				"value": true,
+				"newValue": null
+			},
+			{
+				"key": "setting4",
+				"selector": "added",
+				"newValue": "blah blah"
+			},
+			{
+				"key": "setting5",
+				"selector": "added",
+				"newValue": {
+					"key5": "value5"
 				}
 			},
 			{
-				"name": "setting4",
-				"status": "added",
-				"value": "blah blah"
-			},
-			{
-				"name": "setting5",
-				"status": "added",
+				"key": "setting6",
+				"selector": "node",
 				"value": [
 					{
-						"name": "key5",
-						"status": "leaf",
-						"value": "value5"
-					}
-				]
-			},
-			{
-				"name": "setting6",
-				"status": "node",
-				"children": [
-					{
-						"name": "doge",
-						"status": "node",
-						"children": [
+						"key": "doge",
+						"selector": "node",
+						"value": [
 							{
-								"name": "wow",
-								"status": "updated",
-								"value": {
-									"before": "",
-									"after": "so much"
-								}
+								"key": "wow",
+								"selector": "updated",
+								"value": "",
+								"newValue": "so much"
 							}
 						]
 					},
 					{
-						"name": "key",
-						"status": "leaf",
+						"key": "key",
+						"selector": "leaf",
 						"value": "value"
 					},
 					{
-						"name": "ops",
-						"status": "added",
-						"value": "vops"
+						"key": "ops",
+						"selector": "added",
+						"newValue": "vops"
 					}
 				]
 			}
 		]
 	},
 	{
-		"name": "group1",
-		"status": "node",
-		"children": [
+		"key": "group1",
+		"selector": "node",
+		"value": [
 			{
-				"name": "baz",
-				"status": "updated",
-				"value": {
-					"before": "bas",
-					"after": "bars"
-				}
+				"key": "baz",
+				"selector": "updated",
+				"value": "bas",
+				"newValue": "bars"
 			},
 			{
-				"name": "foo",
-				"status": "leaf",
+				"key": "foo",
+				"selector": "leaf",
 				"value": "bar"
 			},
 			{
-				"name": "nest",
-				"status": "updated",
+				"key": "nest",
+				"selector": "updated",
 				"value": {
-					"before": [
-						{
-							"name": "key",
-							"status": "leaf",
-							"value": "value"
-						}
-					],
-					"after": "str"
+					"key": "value"
+				},
+				"newValue": "str"
+			}
+		]
+	},
+	{
+		"key": "group2",
+		"selector": "deleted",
+		"value": {
+			"abc": 12345,
+			"deep": {
+				"id": 45
+			}
+		}
+	},
+	{
+		"key": "group3",
+		"selector": "added",
+		"newValue": {
+			"fee": 100500,
+			"deep": {
+				"id": {
+					"number": 45
 				}
 			}
-		]
-	},
-	{
-		"name": "group2",
-		"status": "deleted",
-		"value": [
-			{
-				"name": "abc",
-				"status": "leaf",
-				"value": 12345
-			},
-			{
-				"name": "deep",
-				"status": "node",
-				"children": [
-					{
-						"name": "id",
-						"status": "leaf",
-						"value": 45
-					}
-				]
-			}
-		]
-	},
-	{
-		"name": "group3",
-		"status": "added",
-		"value": [
-			{
-				"name": "deep",
-				"status": "node",
-				"children": [
-					{
-						"name": "id",
-						"status": "node",
-						"children": [
-							{
-								"name": "number",
-								"status": "leaf",
-								"value": 45
-							}
-						]
-					}
-				]
-			},
-			{
-				"name": "fee",
-				"status": "leaf",
-				"value": 100500
-			}
-		]
+		}
 	}
 ]
