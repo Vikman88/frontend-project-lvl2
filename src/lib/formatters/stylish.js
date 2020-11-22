@@ -1,18 +1,18 @@
 import _ from 'lodash';
 
-const makeSpaces = (countSpace) => '\n' + ' '.repeat(countSpace);
+const makeSpaces = (countSpace) => `\n${' '.repeat(countSpace)}`;
+
+const getValue = (value, count) => {
+  if (_.isObject(value)) {
+    const expandedValue = Object.keys(value).map((v) => `${makeSpaces(count + 4)}  ${v}: ${getValue(value[v], count + 4)}`);
+    return `{${expandedValue}${makeSpaces(count + 2)}}`;
+  }
+  return value;
+};
 
 const convertToStylish = (tree, count = 2) => tree.map(({
   key, selector, value, newValue,
-  }) => {
-  const getValue = (value, count) => {
-    if (_.isObject(value)) {
-      const expandedValue = Object.keys(value).map((v) => `${makeSpaces(count + 4)}  ${v}: ${getValue(value[v], count + 4)}`);
-      return `{${expandedValue}${makeSpaces(count + 2)}}`;
-    }
-    return value;
-  };
-
+}) => {
   const makeLeafNode = (val) => `${key}: ${getValue(val, count)}`;
 
   const objSelectNode = {
