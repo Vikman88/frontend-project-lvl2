@@ -1,15 +1,13 @@
 {
-  "name": "frontend-project-lvl2",
+  "name": "frontend-project-lvl2-gendiff",
   "version": "1.0.0",
-  "description": "Compares two configuration files and shows a difference.",
+  "description": "Compares configuration files and shows a difference.",
   "main": "src/bin/gendiff.js",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
   },
   "scripts": {
-    "test": "npx -n --experimental-vm-modules jest",
-    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
-    "prepublishOnly": "npm run build"
+    "test": "npx -n --experimental-vm-modules jest"
   },
   "files": [
     "dist"
@@ -18,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/Vikman88/frontend-project-lvl2.git"
   },
-  "author": "",
+  "author": "Viktor V",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Vikman88/frontend-project-lvl2/issues"
