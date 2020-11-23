@@ -22,7 +22,9 @@ make install
 [![asciicast](https://asciinema.org/a/9HfKfMFn7632snT9Nx7Ihel3v.svg)](https://asciinema.org/a/9HfKfMFn7632snT9Nx7Ihel3v)
 
 ## Run
-
+```sh
+npx babel-node src/bin/gendiff.js -f stylish file1.json file2.yml
+```
 [![asciicast](https://asciinema.org/a/dVjEQc7PRzYscCiFSygXmImdb.svg)](https://asciinema.org/a/dVjEQc7PRzYscCiFSygXmImdb)
 
 ### Run test
