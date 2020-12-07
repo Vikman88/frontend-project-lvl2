@@ -1,7 +1,7 @@
 install:
 	npm install
 start:
-	npx src/bin/gendiff.js -h
+	bin/gendiff.js -h
 start-stylish:
 	npx src/bin/gendiff.js file5.json file6.json
 start-plain:

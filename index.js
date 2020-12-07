@@ -1,5 +1,5 @@
 import path from 'path';
-import comparator from 'src/lib/comparator.js';
+import comparator from './src/lib/comparator.js';
 
 export default (firstPath, secondPath, format) => {
   const filePath1 = path.resolve(process.cwd(), firstPath);
