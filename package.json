@@ -1,5 +1,5 @@
 {
-  "name": "@hexlet/gendiff",
+  "name": "vikman-gendiff",
   "version": "1.0.0",
   "description": "Compares configuration files and shows a difference.",
   "main": "index.js",
