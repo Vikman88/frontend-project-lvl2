@@ -1,5 +1,5 @@
 install:
-	npm install
+	npm ci
 start:
 	bin/gendiff.js -h
 start-stylish:
