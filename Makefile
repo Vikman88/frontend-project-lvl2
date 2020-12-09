@@ -1,6 +1,6 @@
 install:
 	npm ci
-start:
+help:
 	bin/gendiff.js -h
 publish:
 	npm publish --access=public
@@ -13,6 +13,6 @@ test-coverage:
 commit:
 	git add .
 	git status
-	git commit -m '$(NAME)'
+	git commit -m '$(name)'
 
 .PHONY: test
