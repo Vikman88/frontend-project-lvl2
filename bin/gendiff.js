@@ -10,9 +10,7 @@ program
   .option('-f, --format [type]', '[type] output format', 'stylish')
   .arguments('<firstPath> <secondPath>')
   .action((firstPath, secondPath, option) => {
-    const filePath1 = path.resolve(process.cwd(), firstPath);
-    const filePath2 = path.resolve(process.cwd(), secondPath);
-    const result = gendiff(filePath1, filePath2, option.format);
+    const result = gendiff(firstPath, secondPath, option.format);
     console.log(result);
   });
 

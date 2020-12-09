@@ -2,14 +2,8 @@ install:
 	npm ci
 start:
 	bin/gendiff.js -h
-start-stylish:
-	npx src/bin/gendiff.js file5.json file6.json
-start-plain:
-	npx src/bin/gendiff.js -f plain file5.json file6.yml
-start-json:
-	npx src/bin/gendiff.js -f json file5.yml file6.json	
 publish:
-	npm publish --dry-run
+	npm publish --access=public
 lint:
 	npx eslint .
 test:
