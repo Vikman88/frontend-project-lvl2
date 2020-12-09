@@ -13,13 +13,14 @@ const extensionFile = [['json', 'json'], ['yml', 'yml'], ['json', 'yml']];
 
 describe.each(formats)('test %s format', (format) => {
   const nameFile = `expected_${format}.txt`;
-  const result = readFile(nameFile);
+  const expectedValue = readFile(nameFile);
 
   test.each(extensionFile)('%s + %s', (extFirst, extSecond) => {
     const nameFirstFile = `file1.${extFirst}`;
     const nameSecondFile = `file2.${extSecond}`;
     const dataFirst = getFixturePath(nameFirstFile);
     const dataSecond = getFixturePath(nameSecondFile);
-    expect(gendiff(dataFirst, dataSecond, `${format}`)).toEqual(result);
+    const receivedValue = gendiff(dataFirst, dataSecond, `${format}`);
+    expect(receivedValue).toEqual(expectedValue);
   });
 });

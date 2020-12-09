@@ -10,5 +10,9 @@ test:
 	npm test
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8
+commit:
+	git add .
+	git status
+	git commit -m '$(NAME)'
 
 .PHONY: test

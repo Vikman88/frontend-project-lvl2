@@ -25,7 +25,7 @@ const makeNode = (key, selector, value, newValue) => ({
   key, selector, value, newValue,
 });
 
-const objSelectNode = {
+const selectNode = {
   [node]: (key, value, newValue) => makeNode(key, node, compare(value, newValue)),
   [leaf]: (key, value) => makeNode(key, leaf, value),
   [deleted]: (key, value) => makeNode(key, deleted, value),
@@ -37,7 +37,7 @@ const makeAST = (acc, key, obj1, obj2) => {
   const value = obj1[key];
   const newValue = obj2[key];
   const selector = compareValue(value, newValue);
-  const buildingNode = objSelectNode[selector](key, value, newValue);
+  const buildingNode = selectNode[selector](key, value, newValue);
   return [...acc, buildingNode];
 };
 
@@ -48,9 +48,9 @@ const compare = (data1, data2) => {
   return ast;
 };
 
-export default (filePath1, filePath2, format) => {
-  const parseFile1 = parse(filePath1);
-  const parseFile2 = parse(filePath2);
-  const result = compare(parseFile1, parseFile2);
+export default (pathFile1, pathFile2, format) => {
+  const content1 = parse(pathFile1);
+  const content2 = parse(pathFile2);
+  const result = compare(content1, content2);
   return formatter(result, format);
 };
