@@ -2,16 +2,16 @@ import _ from 'lodash';
 import parse from './parsers.js';
 import formatter from './formatters/index.js';
 
-const mergeSortObj = (parseResult1, parseResult2) => {
-  const newObj = { ...parseResult1, ...parseResult2 };
-  return Object.keys(newObj).sort();
-};
-
 const node = 'node';
 const leaf = 'leaf';
 const deleted = 'deleted';
 const added = 'added';
 const updated = 'updated';
+
+const mergeSortObj = (parseData1, parseData2) => {
+  const newMergeObj = { ...parseData1, ...parseData2 };
+  return Object.keys(newMergeObj).sort();
+};
 
 const compareValue = (value, newValue) => {
   if (_.isObject(value) && _.isObject(newValue)) return node;
@@ -42,8 +42,8 @@ const makeAST = (acc, key, obj1, obj2) => {
 };
 
 const compare = (data1, data2) => {
-  const newSortedObj = mergeSortObj(data1, data2);
-  const ast = newSortedObj
+  const sortedKeys = mergeSortObj(data1, data2);
+  const ast = sortedKeys
     .reduce((acc, value) => makeAST(acc, value, data1, data2), []);
   return ast;
 };

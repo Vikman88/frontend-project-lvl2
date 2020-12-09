@@ -11,17 +11,20 @@ const buildStr = {
   updated: (path, value, newValue) => `Property '${path}' was updated. From ${value} to ${newValue}`,
 };
 
-const makePlain = (obj, path = '') => obj.reduce((acc, {
-  key, selector, value, newValue,
-}) => {
-  const newPath = [...path, key];
-  if (selector === 'node') return [...acc, ...makePlain(value, newPath)];
-  if (selector === 'leaf') return acc;
-  const buildPathStr = newPath.join('.');
-  const replacedValue = replaceValue(value);
-  const replacedNewValue = replaceValue(newValue);
-  return [...acc, buildStr[selector](buildPathStr, replacedValue, replacedNewValue)];
-}, []);
+const makePlain = (obj) => {
+  const iter = (object, path) => object.reduce((acc, {
+    key, selector, value, newValue,
+  }) => {
+    const newPath = [...path, key];
+    if (selector === 'node') return [...acc, ...iter(value, newPath)];
+    if (selector === 'leaf') return acc;
+    const buildPathStr = newPath.join('.');
+    const replacedValue = replaceValue(value);
+    const replacedNewValue = replaceValue(newValue);
+    return [...acc, buildStr[selector](buildPathStr, replacedValue, replacedNewValue)];
+  }, []);
+  return iter(obj, '');
+};
 
 export default (tagData) => {
   const plainResult = makePlain(tagData);
