@@ -2,6 +2,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/a67322e03a2262111f78/maintainability)](https://codeclimate.com/github/Vikman88/frontend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a67322e03a2262111f78/test_coverage)](https://codeclimate.com/github/Vikman88/frontend-project-lvl2/test_coverage)
 [![Node.js CI](https://github.com/Vikman88/frontend-project-lvl2/workflows/Node.js%20CI/badge.svg)](https://github.com/Vikman88/frontend-project-lvl2/actions)
+![hexlet-check](https://github.com/Vikman88/frontend-project-lvl2/workflows/hexlet-check/badge.svg)
 
 ## Описание
 
@@ -23,7 +24,7 @@ make install
 
 ## Run
 ```sh
-npx babel-node src/bin/gendiff.js -f stylish file1.json file2.yml
+bin/gendiff.js -f stylish path/to/file1 path/to/file2
 ```
 [![asciicast](https://asciinema.org/a/dVjEQc7PRzYscCiFSygXmImdb.svg)](https://asciinema.org/a/dVjEQc7PRzYscCiFSygXmImdb)
 
@@ -32,17 +33,7 @@ npx babel-node src/bin/gendiff.js -f stylish file1.json file2.yml
 make test
 ```
 
-### [format stylish]
+### Help
 ```sh
-make start-stylish
-```
-
-### [format plain]
-```sh
-make start-plain
-```
-
-### [format json]
-```sh
-make start-json
+make help
 ```

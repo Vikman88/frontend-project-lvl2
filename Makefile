@@ -3,7 +3,7 @@ install:
 help:
 	bin/gendiff.js -h
 publish:
-	npm publish --access=public
+	npm publish --dry-run
 lint:
 	npx eslint .
 test:
