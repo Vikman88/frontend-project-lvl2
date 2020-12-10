@@ -1,5 +1,5 @@
 install:
-	npm ci
+	npm ci --production
 help:
 	bin/gendiff.js -h
 publish:
