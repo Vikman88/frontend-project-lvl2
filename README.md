@@ -22,18 +22,18 @@ make install
 ```
 [![asciicast](https://asciinema.org/a/9HfKfMFn7632snT9Nx7Ihel3v.svg)](https://asciinema.org/a/9HfKfMFn7632snT9Nx7Ihel3v)
 
+### Help
+```sh
+make help
+```
+
 ## Run
 ```sh
-bin/gendiff.js -f stylish path/to/file1 path/to/file2
+gendiff -f [format] [path/to/file1] [path/to/file2]
 ```
 [![asciicast](https://asciinema.org/a/dVjEQc7PRzYscCiFSygXmImdb.svg)](https://asciinema.org/a/dVjEQc7PRzYscCiFSygXmImdb)
 
 ### Run test
 ```sh
 make test
-```
-
-### Help
-```sh
-make help
 ```

@@ -1,7 +1,8 @@
 install:
 	npm ci --production
+	npm link
 help:
-	bin/gendiff.js -h
+	gendiff.js -h
 publish:
 	npm publish --dry-run
 lint:
