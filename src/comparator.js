@@ -1,6 +1,4 @@
 import _ from 'lodash';
-import parse from './parsers.js';
-import formatter from './formatters/index.js';
 
 const node = 'node';
 const leaf = 'leaf';
@@ -48,9 +46,4 @@ const compare = (data1, data2) => {
   return ast;
 };
 
-export default (pathFile1, pathFile2, format) => {
-  const content1 = parse(pathFile1);
-  const content2 = parse(pathFile2);
-  const result = compare(content1, content2);
-  return formatter(result, format);
-};
+export default compare;

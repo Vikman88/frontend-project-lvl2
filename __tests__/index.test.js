@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const getFixturePath = (fileName) => path.join(__dirname, '..', '__fixtures__', fileName);
 const readFile = (pathFile) => fs.readFileSync(getFixturePath(pathFile)).toString().trim();
-const formats = ['stylish', 'plain', 'json', ''];
+const formats = ['stylish', 'plain', 'json', 'default'];
 const extensionFile = [['json', 'json'], ['yml', 'yml'], ['json', 'yml']];
 
 describe.each(formats)('test %s format', (format) => {
