@@ -1,49 +1,42 @@
 import _ from 'lodash';
 
-const node = 'node';
-const leaf = 'leaf';
-const deleted = 'deleted';
-const added = 'added';
-const updated = 'updated';
-
-const mergeSortObj = (parseData1, parseData2) => {
-  const newMergeObj = { ...parseData1, ...parseData2 };
-  return Object.keys(newMergeObj).sort();
+const getSortedKeys = (obj1, obj2) => {
+  const keys1 = _.keys(obj1);
+  const keys2 = _.keys(obj2);
+  const keys = _.union(keys1, keys2);
+  return keys.sort();
 };
 
-const compareValue = (value, newValue) => {
-  if (_.isObject(value) && _.isObject(newValue)) return node;
-  if (_.isUndefined(newValue)) return deleted;
-  if (_.isUndefined(value)) return added;
-  if (value === newValue) return leaf;
-  return updated;
+const getSelector = (data1, data2, key) => {
+  const oldValue = data1[key];
+  const newValue = data2[key];
+  if (!_.has(data2, key)) return 'deleted';
+  if (!_.has(data1, key)) return 'added';
+  if (oldValue !== newValue) return 'changed';
+  return 'unchanged';
 };
 
-const makeNode = (key, selector, value, newValue) => ({
-  key, selector, value, newValue,
+const makeNestedNode = (key, selector, children) => ({
+  key, selector, children,
 });
 
-const selectNode = {
-  [node]: (key, value, newValue) => makeNode(key, node, compare(value, newValue)),
-  [leaf]: (key, value) => makeNode(key, leaf, value),
-  [deleted]: (key, value) => makeNode(key, deleted, value),
-  [added]: (key, value, newValue) => makeNode(key, added, value, newValue),
-  [updated]: (key, value, newValue) => makeNode(key, updated, value, newValue),
-};
-
-const makeAST = (acc, key, obj1, obj2) => {
-  const value = obj1[key];
-  const newValue = obj2[key];
-  const selector = compareValue(value, newValue);
-  const buildingNode = selectNode[selector](key, value, newValue);
-  return [...acc, buildingNode];
-};
+const makeNode = (key, selector, oldValue, newValue) => ({
+  key, selector, oldValue, newValue,
+});
 
 const compare = (data1, data2) => {
-  const sortedKeys = mergeSortObj(data1, data2);
-  const ast = sortedKeys
-    .reduce((acc, value) => makeAST(acc, value, data1, data2), []);
-  return ast;
+  const sortedKeys = getSortedKeys(data1, data2);
+  const maps = (node) => {
+    const oldValue = data1[node];
+    const newValue = data2[node];
+    if (_.isObject(oldValue) && _.isObject(newValue)) {
+      return makeNestedNode(node, 'node', compare(oldValue, newValue));
+    }
+    const selector = getSelector(data1, data2, node);
+    return (selector === 'unchanged') ? makeNode(node, selector, oldValue)
+      : makeNode(node, selector, oldValue, newValue);
+  };
+  return sortedKeys.map(maps);
 };
 
 export default compare;
