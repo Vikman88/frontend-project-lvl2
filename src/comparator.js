@@ -26,7 +26,7 @@ const makeNode = (key, selector, oldValue, newValue) => ({
 
 const compare = (data1, data2) => {
   const sortedKeys = getSortedKeys(data1, data2);
-  const maps = (node) => {
+  const iter = (node) => {
     const oldValue = data1[node];
     const newValue = data2[node];
     if (_.isObject(oldValue) && _.isObject(newValue)) {
@@ -36,7 +36,7 @@ const compare = (data1, data2) => {
     return (selector === 'unchanged') ? makeNode(node, selector, oldValue)
       : makeNode(node, selector, oldValue, newValue);
   };
-  return sortedKeys.map(maps);
+  return sortedKeys.map(iter);
 };
 
 export default compare;
