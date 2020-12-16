@@ -7,21 +7,22 @@ const replaceValue = (value) => {
 
 const buildStr = {
   deleted: (path) => `Property '${path}' was removed`,
-  added: (path, value, newValue) => `Property '${path}' was added with value: ${newValue}`,
-  updated: (path, value, newValue) => `Property '${path}' was updated. From ${value} to ${newValue}`,
+  added: (path, oldValue, newValue) => `Property '${path}' was added with value: ${newValue}`,
+  changed: (path, oldValue, newValue) => `Property '${path}' was updated. From ${oldValue} to ${newValue}`,
 };
 
 const makePlain = (obj) => {
   const iter = (object, path) => object.reduce((acc, {
-    key, selector, value, newValue,
+    key, selector, children, oldValue, newValue,
   }) => {
     const newPath = [...path, key];
-    if (selector === 'node') return [...acc, ...iter(value, newPath)];
+    if (selector === 'node') return [...acc, ...iter(children, newPath)];
     if (selector === 'leaf') return acc;
+    if (selector === 'unchanged') return acc;
     const buildPathStr = newPath.join('.');
-    const replacedValue = replaceValue(value);
+    const replacedOldValue = replaceValue(oldValue);
     const replacedNewValue = replaceValue(newValue);
-    return [...acc, buildStr[selector](buildPathStr, replacedValue, replacedNewValue)];
+    return [...acc, buildStr[selector](buildPathStr, replacedOldValue, replacedNewValue)];
   }, []);
   return iter(obj, '');
 };

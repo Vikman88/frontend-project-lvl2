@@ -2,7 +2,7 @@
 	{
 		"key": "common",
 		"selector": "node",
-		"value": [
+		"children": [
 			{
 				"key": "follow",
 				"selector": "added",
@@ -10,18 +10,18 @@
 			},
 			{
 				"key": "setting1",
-				"selector": "leaf",
-				"value": "Value 1"
+				"selector": "unchanged",
+				"oldValue": "Value 1"
 			},
 			{
 				"key": "setting2",
 				"selector": "deleted",
-				"value": 200
+				"oldValue": 200
 			},
 			{
 				"key": "setting3",
-				"selector": "updated",
-				"value": true,
+				"selector": "changed",
+				"oldValue": true,
 				"newValue": null
 			},
 			{
@@ -32,30 +32,34 @@
 			{
 				"key": "setting5",
 				"selector": "added",
-				"newValue": {
-					"key5": "value5"
-				}
+				"newValue": [
+					{
+						"key": "key5",
+						"selector": "leaf",
+						"value": "value5"
+					}
+				]
 			},
 			{
 				"key": "setting6",
 				"selector": "node",
-				"value": [
+				"children": [
 					{
 						"key": "doge",
 						"selector": "node",
-						"value": [
+						"children": [
 							{
 								"key": "wow",
-								"selector": "updated",
-								"value": "",
+								"selector": "changed",
+								"oldValue": "",
 								"newValue": "so much"
 							}
 						]
 					},
 					{
 						"key": "key",
-						"selector": "leaf",
-						"value": "value"
+						"selector": "unchanged",
+						"oldValue": "value"
 					},
 					{
 						"key": "ops",
@@ -69,24 +73,28 @@
 	{
 		"key": "group1",
 		"selector": "node",
-		"value": [
+		"children": [
 			{
 				"key": "baz",
-				"selector": "updated",
-				"value": "bas",
+				"selector": "changed",
+				"oldValue": "bas",
 				"newValue": "bars"
 			},
 			{
 				"key": "foo",
-				"selector": "leaf",
-				"value": "bar"
+				"selector": "unchanged",
+				"oldValue": "bar"
 			},
 			{
 				"key": "nest",
-				"selector": "updated",
-				"value": {
-					"key": "value"
-				},
+				"selector": "changed",
+				"oldValue": [
+					{
+						"key": "key",
+						"selector": "leaf",
+						"value": "value"
+					}
+				],
 				"newValue": "str"
 			}
 		]
@@ -94,23 +102,51 @@
 	{
 		"key": "group2",
 		"selector": "deleted",
-		"value": {
-			"abc": 12345,
-			"deep": {
-				"id": 45
+		"oldValue": [
+			{
+				"key": "abc",
+				"selector": "leaf",
+				"value": 12345
+			},
+			{
+				"key": "deep",
+				"selector": "node",
+				"children": [
+					{
+						"key": "id",
+						"selector": "leaf",
+						"value": 45
+					}
+				]
 			}
-		}
+		]
 	},
 	{
 		"key": "group3",
 		"selector": "added",
-		"newValue": {
-			"fee": 100500,
-			"deep": {
-				"id": {
-					"number": 45
-				}
+		"newValue": [
+			{
+				"key": "fee",
+				"selector": "leaf",
+				"value": 100500
+			},
+			{
+				"key": "deep",
+				"selector": "node",
+				"children": [
+					{
+						"key": "id",
+						"selector": "node",
+						"children": [
+							{
+								"key": "number",
+								"selector": "leaf",
+								"value": 45
+							}
+						]
+					}
+				]
 			}
-		}
+		]
 	}
 ]

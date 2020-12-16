@@ -24,6 +24,18 @@ const makeNode = (key, selector, oldValue, newValue) => ({
   key, selector, oldValue, newValue,
 });
 
+const makeLeafNode = (key, selector, value) => ({
+  key, selector, value,
+});
+
+const getValue = (value) => {
+  if (!_.isObject(value)) return value;
+  return Object.entries(value).map(([key, val]) => {
+    if (_.isObject(val)) return makeNestedNode(key, 'node', getValue(val));
+    return makeLeafNode(key, 'leaf', val);
+  });
+};
+
 const compare = (data1, data2) => {
   const sortedKeys = getSortedKeys(data1, data2);
   const iter = (node) => {
@@ -33,8 +45,10 @@ const compare = (data1, data2) => {
       return makeNestedNode(node, 'node', compare(oldValue, newValue));
     }
     const selector = getSelector(data1, data2, node);
-    return (selector === 'unchanged') ? makeNode(node, selector, oldValue)
-      : makeNode(node, selector, oldValue, newValue);
+    const repairedOldValue = getValue(oldValue);
+    const repairedNewValue = getValue(newValue);
+    return (selector === 'unchanged') ? makeNode(node, selector, repairedOldValue)
+      : makeNode(node, selector, repairedOldValue, repairedNewValue);
   };
   return sortedKeys.map(iter);
 };
