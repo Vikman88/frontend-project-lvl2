@@ -4,7 +4,7 @@ const getSortedKeys = (obj1, obj2) => {
   const keys1 = _.keys(obj1);
   const keys2 = _.keys(obj2);
   const keys = _.union(keys1, keys2);
-  return keys.sort();
+  return _.sortBy(keys);
 };
 
 const getSelector = (data1, data2, key) => {
