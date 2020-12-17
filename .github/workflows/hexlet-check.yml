@@ -10,5 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Hexlet project check
-        uses: hexlet/project-action@master
+      - name: frontend-project-lvl2 project check
+        uses: Vikman88/frontend-project-lvl2@master
