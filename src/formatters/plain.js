@@ -17,7 +17,6 @@ const makePlain = (obj) => {
   }) => {
     const newPath = [...path, key];
     if (selector === 'node') return [...acc, ...iter(children, newPath)];
-    if (selector === 'leaf') return acc;
     if (selector === 'unchanged') return acc;
     const buildPathStr = newPath.join('.');
     const replacedOldValue = replaceValue(oldValue);

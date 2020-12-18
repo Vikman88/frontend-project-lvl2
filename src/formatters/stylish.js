@@ -12,19 +12,24 @@ const convertToStylish = (tree) => {
     const endIndent = ' '.repeat(depth - 2);
 
     if (!_.isObject(currentValue)) return `${currentValue}`;
-
+    if (!_.isArray(currentValue)) {
+      const newLinesFromValue = Object
+        .entries(currentValue)
+        .map(([key, val]) => (
+          `\n${currentIndent}  ${key}: ${iter(val, deepIndentSize)}`
+        )).join('');
+      return `${openSymbol}${newLinesFromValue}${lineSeparator}${endIndent}${closeSymbol}`;
+    }
     const lines = currentValue.map(({
-      key, selector, children, value, oldValue, newValue,
+      key, selector, children, oldValue, newValue,
     }) => {
-      const makeLeafNode = (val) => `${key}: ${iter(val, deepIndentSize)}`;
-
       const objSelectNode = {
         node: () => `${currentIndent}  ${key}: ${iter(children, deepIndentSize)}`,
-        unchanged: () => `${currentIndent}  ${makeLeafNode(oldValue)}`,
-        deleted: () => `${currentIndent}- ${makeLeafNode(oldValue)}`,
-        added: () => `${currentIndent}+ ${makeLeafNode(newValue)}`,
-        leaf: () => `${currentIndent}  ${makeLeafNode(value)}`,
-        changed: () => `${currentIndent}- ${makeLeafNode(oldValue)}${lineSeparator}${currentIndent}+ ${makeLeafNode(newValue)}`,
+        unchanged: () => `${currentIndent}  ${key}: ${iter(oldValue, deepIndentSize)}`,
+        deleted: () => `${currentIndent}- ${key}: ${iter(oldValue, deepIndentSize)}`,
+        added: () => `${currentIndent}+ ${key}: ${iter(newValue, deepIndentSize)}`,
+        changed: () => `${currentIndent}- ${key}: ${iter(oldValue, deepIndentSize)}`
+          + `${lineSeparator}${currentIndent}+ ${key}: ${iter(newValue, deepIndentSize)}`,
       };
       return objSelectNode[selector]();
     });
