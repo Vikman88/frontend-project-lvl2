@@ -17,11 +17,10 @@ const makePlain = (obj) => {
   }) => {
     const newPath = [...path, key];
     if (selector === 'node') return [...acc, ...iter(children, newPath)];
-    if (selector === 'unchanged') return acc;
     const buildPathStr = newPath.join('.');
     const replacedOldValue = replaceValue(oldValue);
     const replacedNewValue = replaceValue(newValue);
-    return [...acc, buildStr[selector](buildPathStr, replacedOldValue, replacedNewValue)];
+    return (selector !== 'unchanged') ? [...acc, buildStr[selector](buildPathStr, replacedOldValue, replacedNewValue)] : acc;
   }, []);
   return iter(obj, '');
 };

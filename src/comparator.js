@@ -13,27 +13,13 @@ const compare = (data1, data2) => {
     const oldValue = data1[key];
     const newValue = data2[key];
 
-    if (_.isObject(oldValue) && _.isObject(newValue)) {
-      return {
-        key, selector: 'node', children: compare(oldValue, newValue),
-      };
-    }
-    if (!_.has(data2, key)) {
-      return {
-        key, selector: 'deleted', oldValue,
-      };
-    }
-    if (!_.has(data1, key)) {
-      return {
-        key, selector: 'added', newValue,
-      };
-    }
-    if (oldValue !== newValue) {
-      return {
-        key, selector: 'changed', oldValue, newValue,
-      };
-    }
-    return { key, selector: 'unchanged', oldValue };
+    if (_.isObject(oldValue) && _.isObject(newValue)) return { key, selector: 'node', children: compare(oldValue, newValue) };
+    if (!_.has(data2, key)) return { key, selector: 'deleted', oldValue };
+    if (!_.has(data1, key)) return { key, selector: 'added', newValue };
+    if (oldValue === newValue) return { key, selector: 'unchanged', oldValue };
+    return {
+      key, selector: 'changed', oldValue, newValue,
+    };
   };
 
   return sortedKeys.map(iter);

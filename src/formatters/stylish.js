@@ -13,11 +13,9 @@ const convertToStylish = (tree) => {
 
     if (!_.isObject(currentValue)) return `${currentValue}`;
     if (!_.isArray(currentValue)) {
-      const newLinesFromValue = Object
-        .entries(currentValue)
-        .map(([key, val]) => (
-          `\n${currentIndent}  ${key}: ${iter(val, deepIndentSize)}`
-        )).join('');
+      const newLinesFromValue = Object.entries(currentValue).map(([key, val]) => (
+        `\n${currentIndent}  ${key}: ${iter(val, deepIndentSize)}`
+      )).join('');
       return `${openSymbol}${newLinesFromValue}${lineSeparator}${endIndent}${closeSymbol}`;
     }
     const lines = currentValue.map(({
@@ -34,11 +32,7 @@ const convertToStylish = (tree) => {
       return objSelectNode[selector]();
     });
 
-    return [
-      openSymbol,
-      ...lines,
-      `${endIndent}${closeSymbol}`,
-    ].join(lineSeparator);
+    return [openSymbol, ...lines, `${endIndent}${closeSymbol}`].join(lineSeparator);
   };
 
   return iter(tree, 2);
