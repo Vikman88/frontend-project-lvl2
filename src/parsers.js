@@ -1,6 +1,7 @@
 import yaml from 'js-yaml';
 
-export default (content, descriptor) => {
-  if (descriptor === '.json') return JSON.parse(content);
-  return yaml.safeLoad(content) || {};
+export default (content, format) => {
+  if (format === 'json') return JSON.parse(content);
+  if (format === 'yml' || format === 'yaml') return yaml.safeLoad(content) || {};
+  throw new Error(`[${format}] file format is not supported`);
 };

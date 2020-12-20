@@ -6,7 +6,7 @@ import compare from './comparator.js';
 
 const collectPath = (pathFile) => path.resolve(process.cwd(), pathFile);
 const readFile = (pathFile) => fs.readFileSync(collectPath(pathFile), 'utf-8').toString();
-const getDescriptor = (pathFile) => path.extname(collectPath(pathFile));
+const getDescriptor = (pathFile) => path.extname(collectPath(pathFile)).substring(1);
 
 export default (pathFile1, pathFile2, format) => {
   // Get content.

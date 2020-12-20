@@ -12,6 +12,7 @@ test:
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8
 commit:
+	$(VAR)
 	git add .
 	git status
 	git commit -m '$(name)'

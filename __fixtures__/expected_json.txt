@@ -1,52 +1,52 @@
 [
 	{
 		"key": "common",
-		"selector": "node",
+		"type": "node",
 		"children": [
 			{
 				"key": "follow",
-				"selector": "added",
+				"type": "added",
 				"newValue": false
 			},
 			{
 				"key": "setting1",
-				"selector": "unchanged",
+				"type": "unchanged",
 				"oldValue": "Value 1"
 			},
 			{
 				"key": "setting2",
-				"selector": "deleted",
+				"type": "deleted",
 				"oldValue": 200
 			},
 			{
 				"key": "setting3",
-				"selector": "changed",
+				"type": "changed",
 				"oldValue": true,
 				"newValue": null
 			},
 			{
 				"key": "setting4",
-				"selector": "added",
+				"type": "added",
 				"newValue": "blah blah"
 			},
 			{
 				"key": "setting5",
-				"selector": "added",
+				"type": "added",
 				"newValue": {
 					"key5": "value5"
 				}
 			},
 			{
 				"key": "setting6",
-				"selector": "node",
+				"type": "node",
 				"children": [
 					{
 						"key": "doge",
-						"selector": "node",
+						"type": "node",
 						"children": [
 							{
 								"key": "wow",
-								"selector": "changed",
+								"type": "changed",
 								"oldValue": "",
 								"newValue": "so much"
 							}
@@ -54,12 +54,12 @@
 					},
 					{
 						"key": "key",
-						"selector": "unchanged",
+						"type": "unchanged",
 						"oldValue": "value"
 					},
 					{
 						"key": "ops",
-						"selector": "added",
+						"type": "added",
 						"newValue": "vops"
 					}
 				]
@@ -68,22 +68,22 @@
 	},
 	{
 		"key": "group1",
-		"selector": "node",
+		"type": "node",
 		"children": [
 			{
 				"key": "baz",
-				"selector": "changed",
+				"type": "changed",
 				"oldValue": "bas",
 				"newValue": "bars"
 			},
 			{
 				"key": "foo",
-				"selector": "unchanged",
+				"type": "unchanged",
 				"oldValue": "bar"
 			},
 			{
 				"key": "nest",
-				"selector": "changed",
+				"type": "changed",
 				"oldValue": {
 					"key": "value"
 				},
@@ -93,7 +93,7 @@
 	},
 	{
 		"key": "group2",
-		"selector": "deleted",
+		"type": "deleted",
 		"oldValue": {
 			"abc": 12345,
 			"deep": {
@@ -103,7 +103,7 @@
 	},
 	{
 		"key": "group3",
-		"selector": "added",
+		"type": "added",
 		"newValue": {
 			"fee": 100500,
 			"deep": {

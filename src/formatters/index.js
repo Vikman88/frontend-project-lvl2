@@ -11,6 +11,6 @@ export default (tagData, format) => {
     case 'json':
       return json(tagData);
     default:
-      return stylish(tagData);
+      throw new Error(`output format [${format}] is not supported`);
   }
 };

@@ -1,31 +1,31 @@
 import _ from 'lodash';
 
-const replaceValue = (value) => {
+const convertToStr = (value) => {
   if (_.isObject(value)) return '[complex value]';
   return (_.isString(value)) ? `'${value}'` : value;
 };
 
-const buildStr = {
-  deleted: (path) => `Property '${path}' was removed`,
-  added: (path, oldValue, newValue) => `Property '${path}' was added with value: ${newValue}`,
-  changed: (path, oldValue, newValue) => `Property '${path}' was updated. From ${oldValue} to ${newValue}`,
-};
-
-const makePlain = (obj) => {
-  const iter = (object, path) => object.reduce((acc, {
-    key, selector, children, oldValue, newValue,
+export default (obj) => {
+  const iter = (object, path) => object.flatMap(({
+    key, type, children, oldValue, newValue,
   }) => {
     const newPath = [...path, key];
-    if (selector === 'node') return [...acc, ...iter(children, newPath)];
+    if (type === 'node') return iter(children, newPath);
     const buildPathStr = newPath.join('.');
-    const replacedOldValue = replaceValue(oldValue);
-    const replacedNewValue = replaceValue(newValue);
-    return (selector !== 'unchanged') ? [...acc, buildStr[selector](buildPathStr, replacedOldValue, replacedNewValue)] : acc;
-  }, []);
-  return iter(obj, '');
-};
-
-export default (tagData) => {
-  const plainResult = makePlain(tagData);
-  return plainResult.join('\n');
+    const convertedOldValue = convertToStr(oldValue);
+    const convertedNewValue = convertToStr(newValue);
+    switch (type) {
+      case 'deleted':
+        return `Property '${buildPathStr}' was removed`;
+      case 'added':
+        return `Property '${buildPathStr}' was added with value: ${convertedNewValue}`;
+      case 'changed':
+        return `Property '${buildPathStr}' was updated. From ${convertedOldValue} to ${convertedNewValue}`;
+      case 'unchanged':
+        return null;
+      default:
+        throw new Error(`${type} is not supported`);
+    }
+  });
+  return iter(obj, '').filter(Boolean).join('\n');
 };

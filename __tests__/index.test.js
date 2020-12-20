@@ -20,7 +20,8 @@ describe.each(formats)('test %s format', (format) => {
     const nameSecondFile = `file2.${extSecond}`;
     const dataFirst = getFixturePath(nameFirstFile);
     const dataSecond = getFixturePath(nameSecondFile);
-    const receivedValue = gendiff(dataFirst, dataSecond, `${format}`);
+    const receivedValue = (format === 'default') ? gendiff(dataFirst, dataSecond)
+      : gendiff(dataFirst, dataSecond, `${format}`);
     expect(receivedValue).toEqual(expectedValue);
   });
 });

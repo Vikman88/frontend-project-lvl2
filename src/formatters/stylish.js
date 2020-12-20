@@ -19,7 +19,7 @@ const convertToStylish = (tree) => {
       return `${openSymbol}${newLinesFromValue}${lineSeparator}${endIndent}${closeSymbol}`;
     }
     const lines = currentValue.map(({
-      key, selector, children, oldValue, newValue,
+      key, type, children, oldValue, newValue,
     }) => {
       const objSelectNode = {
         node: () => `${currentIndent}  ${key}: ${iter(children, deepIndentSize)}`,
@@ -29,7 +29,7 @@ const convertToStylish = (tree) => {
         changed: () => `${currentIndent}- ${key}: ${iter(oldValue, deepIndentSize)}`
           + `${lineSeparator}${currentIndent}+ ${key}: ${iter(newValue, deepIndentSize)}`,
       };
-      return objSelectNode[selector]();
+      return objSelectNode[type]();
     });
 
     return [openSymbol, ...lines, `${endIndent}${closeSymbol}`].join(lineSeparator);
