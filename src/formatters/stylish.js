@@ -15,9 +15,7 @@ export default (tree) => {
     const deepIndentSize = depth + sizeInterval;
     const currentIndent = spaceSymbol.repeat(depth);
     const endIndent = spaceSymbol.repeat(depth - 1);
-
     if (!_.isObject(currentValue)) return `${currentValue}`;
-
     const lines = (!_.isArray(currentValue)) ? Object.entries(currentValue).map(([key, val]) => (
       `${currentIndent}${symbolUnchange}${key}${colon}${iter(val, deepIndentSize)}`
     ))
@@ -40,7 +38,6 @@ export default (tree) => {
             throw new Error(`${type} is not supported`);
         }
       });
-
     return [openSymbol, ...lines, `${endIndent}${closeSymbol}`].join(lineSeparator);
   };
 
