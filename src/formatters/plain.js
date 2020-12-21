@@ -10,11 +10,12 @@ export default (obj) => {
     key, type, children, oldValue, newValue,
   }) => {
     const newPath = [...path, key];
-    if (type === 'node') return iter(children, newPath);
     const buildPathStr = newPath.join('.');
     const convertedOldValue = convertToStr(oldValue);
     const convertedNewValue = convertToStr(newValue);
     switch (type) {
+      case 'node':
+        return iter(children, newPath);
       case 'deleted':
         return `Property '${buildPathStr}' was removed`;
       case 'added':
