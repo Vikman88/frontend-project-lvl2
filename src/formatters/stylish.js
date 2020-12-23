@@ -1,43 +1,61 @@
 import _ from 'lodash';
 
-const sizeInterval = 2;
+const sizeInterval = 4;
+const sizePrefix = 2;
 const openSymbol = '{';
 const closeSymbol = '}';
-const spaceSymbol = '  ';
+const spaceSymbol = ' ';
 const lineSeparator = '\n';
 const symbolAdd = '+ ';
 const symbolDel = '- ';
-const symbolUnchange = '  ';
 const colon = ': ';
+
+const getIndent = (depth) => {
+  const currentSize = depth * sizeInterval;
+  return {
+    currentIndent: spaceSymbol.repeat(currentSize),
+    prefixIndent: spaceSymbol.repeat(currentSize - sizePrefix),
+    endIndent: spaceSymbol.repeat(currentSize - sizeInterval),
+  };
+};
+
+const convertToStr = (value, size) => {
+  const { currentIndent } = getIndent(size);
+  const { endIndent } = getIndent(size);
+  if (!_.isObject(value)) return `${value}`;
+  const str = Object.entries(value).map(([key, val]) => (
+    `${currentIndent}${key}${colon}${convertToStr(val, size + 1)}`
+  ));
+  return [openSymbol, ...str, `${endIndent}${closeSymbol}`].join(lineSeparator);
+};
 
 export default (tree) => {
   const iter = (currentValue, depth) => {
-    const deepIndentSize = depth + sizeInterval;
-    const currentIndent = spaceSymbol.repeat(depth);
-    const endIndent = spaceSymbol.repeat(depth - 1);
-    if (!_.isObject(currentValue)) return `${currentValue}`;
-    const lines = (!_.isArray(currentValue)) ? Object.entries(currentValue).map(([key, val]) => (
-      `${currentIndent}${symbolUnchange}${key}${colon}${iter(val, deepIndentSize)}`
-    ))
-      : currentValue.map(({
-        key, type, children, oldValue, newValue,
-      }) => {
-        switch (type) {
-          case 'node':
-            return `${currentIndent}${symbolUnchange}${key}${colon}${iter(children, deepIndentSize)}`;
-          case 'unchanged':
-            return `${currentIndent}${symbolUnchange}${key}${colon}${iter(oldValue, deepIndentSize)}`;
-          case 'deleted':
-            return `${currentIndent}${symbolDel}${key}${colon}${iter(oldValue, deepIndentSize)}`;
-          case 'added':
-            return `${currentIndent}${symbolAdd}${key}${colon}${iter(newValue, deepIndentSize)}`;
-          case 'changed':
-            return `${currentIndent}${symbolDel}${key}${colon}${iter(oldValue, deepIndentSize)}`
-              + `${lineSeparator}${currentIndent}${symbolAdd}${key}${colon}${iter(newValue, deepIndentSize)}`;
-          default:
-            throw new Error(`${type} is not supported`);
-        }
-      });
+    const { currentIndent, prefixIndent, endIndent } = getIndent(depth);
+
+    const lines = currentValue.map(({
+      key, type, children, oldValue, newValue,
+    }) => {
+      const convertedOldValue = convertToStr(oldValue, depth + 1);
+      const convertedNewVal = convertToStr(newValue, depth + 1);
+
+      switch (type) {
+        case 'node':
+          return `${currentIndent}${key}${colon}${iter(children, depth + 1)}`;
+        case 'unchanged':
+          return `${currentIndent}${key}${colon}${convertedOldValue}`;
+        case 'deleted':
+          return `${prefixIndent}${symbolDel}${key}${colon}${convertedOldValue}`;
+        case 'added':
+          return `${prefixIndent}${symbolAdd}${key}${colon}${convertedNewVal}`;
+        case 'changed':
+          return `${prefixIndent}${symbolDel}${key}${colon}${convertedOldValue}`
+            + `${lineSeparator}${prefixIndent}${symbolAdd}${key}${colon}${convertedNewVal}`;
+        default:
+          throw new Error(`${type} is not supported`);
+      }
+    });
+
     return [openSymbol, ...lines, `${endIndent}${closeSymbol}`].join(lineSeparator);
   };
 
